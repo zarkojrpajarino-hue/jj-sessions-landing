@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JJ Sessions — Javi Rubio & Juan SR</title>
+  <meta name="description" content="JJ Sessions — Dúo de DJs de Málaga. Melodic techno & progressive house. Booking y fechas de eventos." />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              black: '#000000',
+              dark: '#0F0F23',
+              blue: '#0044FF',
+              magenta: '#FF0066',
+              violet: '#4338CA',
+              white: '#F8FAFC',
+              muted: '#94A3B8',
+            }
+          },
+          animation: {
+            'scroll-bounce': 'scrollBounce 2s ease-in-out infinite',
+            'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+            'fade-in': 'fadeIn 1s ease-out forwards',
+            'pulse-glow': 'pulseGlow 3s ease-in-out infinite',
+          },
+          keyframes: {
+            scrollBounce: {
+              '0%, 100%': { transform: 'translateY(0)' },
+              '50%': { transform: 'translateY(10px)' },
+            },
+            fadeInUp: {
+              '0%': { opacity: '0', transform: 'translateY(30px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' },
+            },
+            fadeIn: {
+              '0%': { opacity: '0' },
+              '100%': { opacity: '1' },
+            },
+            pulseGlow: {
+              '0%, 100%': { opacity: '0.4' },
+              '50%': { opacity: '1' },
+            },
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Smooth scroll with Lenis-like easing */
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* Hide scrollbar but keep functionality */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #000; }
+    ::-webkit-scrollbar-thumb { background: #4338CA; border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: #0044FF; }
+
+    /* Chrome text effect for logo */
+    .chrome-text {
+      background: linear-gradient(135deg, #e0e0e0 0%, #6a6a9a 25%, #ffffff 50%, #8a6aaa 75%, #c0c0e0 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: drop-shadow(0 0 30px rgba(67, 56, 202, 0.5));
+    }
+
+    /* Glass card effect */
+    .glass-card {
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    /* Event card hover */
+    .event-card {
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .event-card:hover {
+      background: rgba(255, 255, 255, 0.05);
+      transform: translateX(8px);
+    }
+    .event-card:hover .event-arrow {
+      transform: translateX(4px);
+      color: #0044FF;
+    }
+
+    /* Nav transition */
+    .nav-scrolled {
+      background: rgba(0, 0, 0, 0.95) !important;
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    /* Scroll reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Photo hover zoom */
+    .photo-hover {
+      overflow: hidden;
+    }
+    .photo-hover img {
+      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .photo-hover:hover img {
+      transform: scale(1.05);
+    }
+
+    /* Gradient overlay for hero */
+    .hero-gradient {
+      background: linear-gradient(
+        to bottom,
+        transparent 0%,
+        rgba(0, 0, 0, 0.3) 50%,
+        rgba(0, 0, 0, 0.95) 100%
+      );
+    }
+
+    /* Respect reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+      html { scroll-behavior: auto; }
+    }
+
+    /* Mobile menu */
+    .mobile-menu {
+      transform: translateX(100%);
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .mobile-menu.open {
+      transform: translateX(0);
+    }
+  </style>
+</head>
+
+<body class="bg-brand-black text-brand-white font-sans antialiased overflow-x-hidden">
+
+  <!-- ========== NAVIGATION ========== -->
+  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-500">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        <!-- Logo -->
+        <a href="#" class="flex items-center gap-3 cursor-pointer">
+          <img src="assets/logo-chrome.png" alt="JJ Sessions" class="h-10 w-10 object-contain" />
+          <span class="text-lg font-bold tracking-wider hidden sm:block">JJ SESSIONS</span>
+        </a>
+
+        <!-- Desktop Menu -->
+        <div class="hidden md:flex items-center gap-10">
+          <a href="#fechas" class="text-sm font-medium tracking-widest text-brand-muted hover:text-white transition-colors duration-200 cursor-pointer">FECHAS</a>
+          <a href="#about" class="text-sm font-medium tracking-widest text-brand-muted hover:text-white transition-colors duration-200 cursor-pointer">ABOUT</a>
+          <a href="#videos" class="text-sm font-medium tracking-widest text-brand-muted hover:text-white transition-colors duration-200 cursor-pointer">VIDEOS</a>
+          <a href="#contacto" class="text-sm font-medium tracking-widest text-brand-muted hover:text-white transition-colors duration-200 cursor-pointer">CONTACTO</a>
+        </div>
+
+        <!-- Social Icons -->
+        <div class="hidden md:flex items-center gap-4">
+          <a href="https://instagram.com/javirubiop_" target="_blank" rel="noopener noreferrer" aria-label="Instagram Javi" class="text-brand-muted hover:text-white transition-colors duration-200 cursor-pointer">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4zm9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8A1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25M12 7a5 5 0 0 1 5 5a5 5 0 0 1-5 5a5 5 0 0 1-5-5a5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3a3 3 0 0 0 3 3a3 3 0 0 0 3-3a3 3 0 0 0-3-3"/></svg>
+          </a>
+          <a href="https://instagram.com/juaann_sr" target="_blank" rel="noopener noreferrer" aria-label="Instagram Juan" class="text-brand-muted hover:text-white transition-colors duration-200 cursor-pointer">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4zm9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8A1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25M12 7a5 5 0 0 1 5 5a5 5 0 0 1-5 5a5 5 0 0 1-5-5a5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3a3 3 0 0 0 3 3a3 3 0 0 0 3-3a3 3 0 0 0-3-3"/></svg>
+          </a>
+        </div>
+
+        <!-- Mobile Hamburger -->
+        <button id="menu-toggle" class="md:hidden text-white cursor-pointer p-2" aria-label="Abrir menú">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="mobile-menu fixed inset-0 bg-black/98 z-50 flex flex-col items-center justify-center gap-8 md:hidden">
+      <button id="menu-close" class="absolute top-6 right-6 text-white cursor-pointer p-2" aria-label="Cerrar menú">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+      </button>
+      <a href="#fechas" class="text-2xl font-bold tracking-widest hover:text-brand-blue transition-colors cursor-pointer mobile-link">FECHAS</a>
+      <a href="#about" class="text-2xl font-bold tracking-widest hover:text-brand-blue transition-colors cursor-pointer mobile-link">ABOUT</a>
+      <a href="#videos" class="text-2xl font-bold tracking-widest hover:text-brand-blue transition-colors cursor-pointer mobile-link">VIDEOS</a>
+      <a href="#contacto" class="text-2xl font-bold tracking-widest hover:text-brand-blue transition-colors cursor-pointer mobile-link">CONTACTO</a>
+      <div class="flex gap-6 mt-8">
+        <a href="https://instagram.com/javirubiop_" target="_blank" rel="noopener noreferrer" class="text-brand-muted hover:text-white transition-colors cursor-pointer" aria-label="Instagram Javi">
+          <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4zm9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8A1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25M12 7a5 5 0 0 1 5 5a5 5 0 0 1-5 5a5 5 0 0 1-5-5a5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3a3 3 0 0 0 3 3a3 3 0 0 0 3-3a3 3 0 0 0-3-3"/></svg>
+        </a>
+        <a href="https://instagram.com/juaann_sr" target="_blank" rel="noopener noreferrer" class="text-brand-muted hover:text-white transition-colors cursor-pointer" aria-label="Instagram Juan">
+          <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4zm9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8A1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25M12 7a5 5 0 0 1 5 5a5 5 0 0 1-5 5a5 5 0 0 1-5-5a5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3a3 3 0 0 0 3 3a3 3 0 0 0 3-3a3 3 0 0 0-3-3"/></svg>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ========== HERO ========== -->
+  <section id="hero" class="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
+    <!-- Background Image -->
+    <div class="absolute inset-0">
+      <img src="assets/hero-bg.png" alt="" class="w-full h-full object-cover" loading="eager" />
+      <div class="hero-gradient absolute inset-0"></div>
+    </div>
+
+    <!-- Content -->
+    <div class="relative z-10 text-center px-6 animate-fade-in">
+      <img src="assets/logo-chrome.png" alt="JJ Sessions Logo" class="w-40 h-40 md:w-56 md:h-56 mx-auto mb-8 drop-shadow-2xl" />
+      <h1 class="text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter chrome-text mb-4">
+        JJ SESSIONS
+      </h1>
+      <p class="text-lg md:text-xl text-brand-muted font-light tracking-[0.3em] uppercase">
+        Javi Rubio & Juan SR
+      </p>
+    </div>
+
+    <!-- Scroll Indicator -->
+    <div class="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 animate-scroll-bounce">
+      <span class="text-xs font-medium tracking-[0.3em] text-brand-muted">SCROLL</span>
+      <svg class="w-5 h-5 text-brand-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- ========== FECHAS / EVENTS ========== -->
+  <section id="fechas" class="py-24 md:py-32 px-6 lg:px-8" style="background-image: url('assets/section-bg-smoke.png'); background-size: cover; background-position: center;">
+    <div class="max-w-4xl mx-auto">
+      <h2 class="reveal text-xs font-medium tracking-[0.4em] text-brand-muted mb-12 uppercase">Proximas Fechas</h2>
+
+      <div class="space-y-0 divide-y divide-white/5">
+        <!-- Event 1 -->
+        <a href="#" class="event-card flex items-center justify-between py-6 px-4 group cursor-pointer">
+          <div class="flex items-baseline gap-6 md:gap-10">
+            <span class="text-3xl md:text-5xl font-black tracking-tight text-white">28.03</span>
+            <div>
+              <p class="text-sm md:text-base font-semibold tracking-wider uppercase text-white">Club Mango</p>
+              <p class="text-xs md:text-sm text-brand-muted tracking-wider uppercase">Malaga</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-4">
+            <span class="text-xs font-bold tracking-wider text-brand-magenta uppercase hidden sm:block">Sold Out</span>
+            <svg class="event-arrow w-5 h-5 text-brand-muted transition-all duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+            </svg>
+          </div>
+        </a>
+
+        <!-- Event 2 -->
+        <a href="#" class="event-card flex items-center justify-between py-6 px-4 group cursor-pointer">
+          <div class="flex items-baseline gap-6 md:gap-10">
+            <span class="text-3xl md:text-5xl font-black tracking-tight text-white">04.04</span>
+            <div>
+              <p class="text-sm md:text-base font-semibold tracking-wider uppercase text-white">Sala Premier</p>
+              <p class="text-xs md:text-sm text-brand-muted tracking-wider uppercase">Granada</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-4">
+            <svg class="event-arrow w-5 h-5 text-brand-muted transition-all duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+            </svg>
+          </div>
+        </a>
+
+        <!-- Event 3 -->
+        <a href="#" class="event-card flex items-center justify-between py-6 px-4 group cursor-pointer">
+          <div class="flex items-baseline gap-6 md:gap-10">
+            <span class="text-3xl md:text-5xl font-black tracking-tight text-white">11.04</span>
+            <div>
+              <p class="text-sm md:text-base font-semibold tracking-wider uppercase text-white">Opium</p>
+              <p class="text-xs md:text-sm text-brand-muted tracking-wider uppercase">Marbella</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-4">
+            <svg class="event-arrow w-5 h-5 text-brand-muted transition-all duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+            </svg>
+          </div>
+        </a>
+
+        <!-- Event 4 -->
+        <a href="#" class="event-card flex items-center justify-between py-6 px-4 group cursor-pointer">
+          <div class="flex items-baseline gap-6 md:gap-10">
+            <span class="text-3xl md:text-5xl font-black tracking-tight text-white">18.04</span>
+            <div>
+              <p class="text-sm md:text-base font-semibold tracking-wider uppercase text-white">Room</p>
+              <p class="text-xs md:text-sm text-brand-muted tracking-wider uppercase">Sevilla</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-4">
+            <svg class="event-arrow w-5 h-5 text-brand-muted transition-all duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+            </svg>
+          </div>
+        </a>
+
+        <!-- Event 5 -->
+        <a href="#" class="event-card flex items-center justify-between py-6 px-4 group cursor-pointer">
+          <div class="flex items-baseline gap-6 md:gap-10">
+            <span class="text-3xl md:text-5xl font-black tracking-tight text-white">25.04</span>
+            <div>
+              <p class="text-sm md:text-base font-semibold tracking-wider uppercase text-white">Mondo</p>
+              <p class="text-xs md:text-sm text-brand-muted tracking-wider uppercase">Madrid</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-4">
+            <svg class="event-arrow w-5 h-5 text-brand-muted transition-all duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+            </svg>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== ABOUT ========== -->
+  <section id="about" class="relative py-24 md:py-32 px-6 lg:px-8 overflow-hidden">
+    <div class="absolute inset-0">
+      <img src="assets/about-bg.png" alt="" class="w-full h-full object-cover opacity-40" loading="lazy" />
+    </div>
+
+    <div class="relative z-10 max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+      <!-- Photo -->
+      <div class="reveal photo-hover rounded-lg overflow-hidden">
+        <img src="assets/photo-booth-red.jpg" alt="JJ Sessions en cabina" class="w-full h-[500px] object-cover" loading="lazy" />
+      </div>
+
+      <!-- Bio -->
+      <div class="reveal">
+        <h2 class="text-xs font-medium tracking-[0.4em] text-brand-muted mb-6 uppercase">Quienes Somos</h2>
+        <h3 class="text-3xl md:text-4xl font-black tracking-tight mb-6">
+          La union de dos estilos,<br />
+          <span class="text-brand-blue">un solo sonido.</span>
+        </h3>
+        <div class="space-y-4 text-brand-muted leading-relaxed">
+          <p>
+            JJ Sessions nace de la conexion entre <strong class="text-white">Javi Rubio</strong> y <strong class="text-white">Juan SR</strong> en la escena underground de Malaga. Lo que empezo como sesiones entre amigos se convirtio en un proyecto que llena pistas en todo el sur de Espana.
+          </p>
+          <p>
+            Nuestro sonido mezcla melodic techno, progressive house y las influencias de la escena electronica andaluza. Cada sesion es unica, cada noche es diferente.
+          </p>
+        </div>
+        <div class="flex gap-6 mt-8">
+          <a href="https://instagram.com/javirubiop_" target="_blank" rel="noopener noreferrer" class="text-sm font-medium text-brand-muted hover:text-white transition-colors cursor-pointer">@javirubiop_</a>
+          <a href="https://instagram.com/juaann_sr" target="_blank" rel="noopener noreferrer" class="text-sm font-medium text-brand-muted hover:text-white transition-colors cursor-pointer">@juaann_sr</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== GALLERY ========== -->
+  <section class="py-24 md:py-32 px-6 lg:px-8 bg-brand-dark">
+    <div class="max-w-6xl mx-auto">
+      <div class="reveal grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="photo-hover rounded-lg overflow-hidden cursor-pointer">
+          <img src="assets/photo-lasers-blue.jpg" alt="JJ Sessions live con lasers" class="w-full h-80 object-cover" loading="lazy" />
+        </div>
+        <div class="photo-hover rounded-lg overflow-hidden cursor-pointer">
+          <img src="assets/photo-solo-mixing.jpg" alt="Mixing en directo" class="w-full h-80 object-cover" loading="lazy" />
+        </div>
+        <div class="photo-hover rounded-lg overflow-hidden cursor-pointer">
+          <img src="assets/photo-lifestyle.jpg" alt="JJ Sessions lifestyle" class="w-full h-80 object-cover" loading="lazy" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== VIDEOS ========== -->
+  <section id="videos" class="py-24 md:py-32 px-6 lg:px-8 bg-brand-black">
+    <div class="max-w-4xl mx-auto">
+      <h2 class="reveal text-xs font-medium tracking-[0.4em] text-brand-muted mb-12 uppercase">Videos</h2>
+
+      <!-- Video 1 -->
+      <div class="reveal mb-16">
+        <div class="glass-card rounded-lg overflow-hidden">
+          <div class="relative aspect-video bg-brand-dark flex items-center justify-center cursor-pointer group">
+            <img src="assets/photo-lasers-blue.jpg" alt="DJ Car Set thumbnail" class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity duration-300" loading="lazy" />
+            <div class="relative z-10 w-16 h-16 md:w-20 md:h-20 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center group-hover:bg-white/20 transition-all duration-300 group-hover:scale-110">
+              <svg class="w-8 h-8 text-white ml-1" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M8 5v14l11-7z"/>
+              </svg>
+            </div>
+          </div>
+          <div class="p-6">
+            <p class="text-xs text-brand-muted tracking-wider mb-2">15.03.26</p>
+            <h3 class="text-xl md:text-2xl font-bold">DJ Car Set by JJ Sessions</h3>
+            <p class="text-sm text-brand-muted mt-2">Nuestro primer car set grabado en las calles de Malaga al atardecer.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Video 2 -->
+      <div class="reveal">
+        <div class="glass-card rounded-lg overflow-hidden">
+          <div class="relative aspect-video bg-brand-dark flex items-center justify-center cursor-pointer group">
+            <img src="assets/photo-booth-red.jpg" alt="Set Live Vol.1 thumbnail" class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity duration-300" loading="lazy" />
+            <div class="relative z-10 w-16 h-16 md:w-20 md:h-20 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center group-hover:bg-white/20 transition-all duration-300 group-hover:scale-110">
+              <svg class="w-8 h-8 text-white ml-1" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M8 5v14l11-7z"/>
+              </svg>
+            </div>
+          </div>
+          <div class="p-6">
+            <p class="text-xs text-brand-muted tracking-wider mb-2">01.02.26</p>
+            <h3 class="text-xl md:text-2xl font-bold">Set Live Vol. 1</h3>
+            <p class="text-sm text-brand-muted mt-2">Sesion completa grabada en Club Mango, Malaga.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== CONTACT / BOOKING ========== -->
+  <section id="contacto" class="py-24 md:py-32 px-6 lg:px-8 bg-brand-dark relative overflow-hidden">
+    <!-- Decorative glow -->
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-brand-violet/10 blur-[150px] animate-pulse-glow"></div>
+
+    <div class="relative z-10 max-w-2xl mx-auto text-center">
+      <h2 class="reveal text-xs font-medium tracking-[0.4em] text-brand-muted mb-6 uppercase">Booking & Contacto</h2>
+      <h3 class="reveal text-4xl md:text-5xl lg:text-6xl font-black tracking-tight mb-8">
+        <span class="chrome-text">Asi vamos.</span>
+      </h3>
+      <p class="reveal text-brand-muted mb-10 max-w-md mx-auto">
+        Para bookings, colaboraciones o simplemente para hablar de musica, escribenos.
+      </p>
+      <a href="mailto:info@jjsessions.com" class="reveal inline-block text-lg md:text-xl font-bold tracking-wider text-white hover:text-brand-blue transition-colors duration-300 cursor-pointer mb-12">
+        INFO@JJSESSIONS.COM
+      </a>
+
+      <div class="reveal flex justify-center gap-8 mt-8">
+        <a href="https://instagram.com/javirubiop_" target="_blank" rel="noopener noreferrer" aria-label="Instagram Javi" class="text-brand-muted hover:text-white transition-colors duration-200 cursor-pointer">
+          <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4zm9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8A1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25M12 7a5 5 0 0 1 5 5a5 5 0 0 1-5 5a5 5 0 0 1-5-5a5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3a3 3 0 0 0 3 3a3 3 0 0 0 3-3a3 3 0 0 0-3-3"/></svg>
+        </a>
+        <a href="https://instagram.com/juaann_sr" target="_blank" rel="noopener noreferrer" aria-label="Instagram Juan" class="text-brand-muted hover:text-white transition-colors duration-200 cursor-pointer">
+          <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4zm9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8A1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25M12 7a5 5 0 0 1 5 5a5 5 0 0 1-5 5a5 5 0 0 1-5-5a5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3a3 3 0 0 0 3 3a3 3 0 0 0 3-3a3 3 0 0 0-3-3"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="py-10 px-6 lg:px-8 bg-brand-black border-t border-white/5">
+    <div class="max-w-6xl mx-auto">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+        <p class="text-xs text-brand-muted tracking-wider">JJ SESSIONS &copy; 2026</p>
+        <div class="flex gap-6">
+          <a href="#" class="text-xs text-brand-muted hover:text-white transition-colors cursor-pointer tracking-wider">COOKIES</a>
+          <a href="#" class="text-xs text-brand-muted hover:text-white transition-colors cursor-pointer tracking-wider">PRIVACIDAD</a>
+          <a href="#" class="text-xs text-brand-muted hover:text-white transition-colors cursor-pointer tracking-wider">LEGAL</a>
+        </div>
+        <div class="flex gap-4">
+          <a href="https://instagram.com/javirubiop_" target="_blank" rel="noopener noreferrer" aria-label="Instagram Javi" class="text-brand-muted hover:text-white transition-colors cursor-pointer">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4zm9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8A1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25M12 7a5 5 0 0 1 5 5a5 5 0 0 1-5 5a5 5 0 0 1-5-5a5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3a3 3 0 0 0 3 3a3 3 0 0 0 3-3a3 3 0 0 0-3-3"/></svg>
+          </a>
+          <a href="https://instagram.com/juaann_sr" target="_blank" rel="noopener noreferrer" aria-label="Instagram Juan" class="text-brand-muted hover:text-white transition-colors cursor-pointer">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4zm9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8A1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25M12 7a5 5 0 0 1 5 5a5 5 0 0 1-5 5a5 5 0 0 1-5-5a5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3a3 3 0 0 0 3 3a3 3 0 0 0 3-3a3 3 0 0 0-3-3"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========== JAVASCRIPT ========== -->
+  <script>
+    // Navbar scroll effect
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        navbar.classList.add('nav-scrolled');
+      } else {
+        navbar.classList.remove('nav-scrolled');
+      }
+    });
+
+    // Mobile menu
+    const menuToggle = document.getElementById('menu-toggle');
+    const menuClose = document.getElementById('menu-close');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const mobileLinks = document.querySelectorAll('.mobile-link');
+
+    menuToggle.addEventListener('click', () => mobileMenu.classList.add('open'));
+    menuClose.addEventListener('click', () => mobileMenu.classList.remove('open'));
+    mobileLinks.forEach(link => {
+      link.addEventListener('click', () => mobileMenu.classList.remove('open'));
+    });
+
+    // Scroll reveal
+    const revealElements = document.querySelectorAll('.reveal');
+    const revealOnScroll = () => {
+      revealElements.forEach(el => {
+        const rect = el.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
+        if (rect.top < windowHeight * 0.85) {
+          el.classList.add('active');
+        }
+      });
+    };
+    window.addEventListener('scroll', revealOnScroll);
+    revealOnScroll(); // Initial check
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+
+    // Escape key closes mobile menu
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') mobileMenu.classList.remove('open');
+    });
+  </script>
+
+</body>
+</html>
