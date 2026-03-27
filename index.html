@@ -104,6 +104,40 @@
     .phone-link { transition:all .3s ease; }
     .phone-link:hover { color:#0044FF; letter-spacing:.08em; }
 
+    /* ===== CUSTOM CURSOR ===== */
+    .cursor-dot { position:fixed; width:8px; height:8px; background:#fff; border-radius:50%; pointer-events:none; z-index:9999; mix-blend-mode:difference; transition:width .3s,height .3s,margin .3s; }
+    .cursor-ring { position:fixed; width:36px; height:36px; border:1px solid rgba(255,255,255,.3); border-radius:50%; pointer-events:none; z-index:9998; transition:width .4s cubic-bezier(.22,1,.36,1),height .4s cubic-bezier(.22,1,.36,1),margin .4s cubic-bezier(.22,1,.36,1),border-color .3s; }
+    .cursor-dot.hover { width:50px; height:50px; margin:-21px 0 0 -21px; background:rgba(67,56,202,.15); mix-blend-mode:normal; }
+    .cursor-ring.hover { width:60px; height:60px; margin:-9px 0 0 -9px; border-color:rgba(67,56,202,.5); }
+    @media(pointer:coarse){ .cursor-dot,.cursor-ring{display:none!important} }
+
+    /* ===== NOISE GRAIN OVERLAY ===== */
+    .grain { position:fixed; inset:0; z-index:9990; pointer-events:none; opacity:.035;
+      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size:128px 128px;
+    }
+
+    /* ===== IMAGE CLIP REVEAL ===== */
+    .clip-reveal { clip-path:inset(100% 0 0 0); transition:clip-path 1.2s cubic-bezier(.22,1,.36,1); }
+    .clip-reveal.revealed { clip-path:inset(0 0 0 0); }
+
+    /* ===== WORD SPLIT TEXT ===== */
+    .word { display:inline-block; overflow:hidden; }
+    .word-inner { display:inline-block; transform:translateY(110%); transition:transform .6s cubic-bezier(.22,1,.36,1); }
+    .word-inner.show { transform:translateY(0); }
+
+    /* ===== MAGNETIC BUTTON ===== */
+    .magnetic { transition:transform .3s cubic-bezier(.22,1,.36,1); }
+
+    /* ===== PROGRESS BAR ===== */
+    #progress { position:fixed; top:0; left:0; height:2px; background:linear-gradient(90deg,#4338CA,#0044FF,#FF0066); z-index:60; width:0; transition:none; }
+
+    /* ===== LOADING SCREEN ===== */
+    #loader { position:fixed; inset:0; z-index:10000; background:#000; display:flex; flex-direction:column; align-items:center; justify-content:center; transition:opacity .8s ease,visibility .8s ease; }
+    #loader.done { opacity:0; visibility:hidden; pointer-events:none; }
+    .loader-bar { width:120px; height:2px; background:rgba(255,255,255,.08); border-radius:1px; overflow:hidden; margin-top:16px; }
+    .loader-fill { height:100%; width:0; background:linear-gradient(90deg,#4338CA,#0044FF); border-radius:1px; transition:width .1s linear; }
+
     /* Glass */
     .glass { background:rgba(255,255,255,.015); border:1px solid rgba(255,255,255,.04); }
 
@@ -120,6 +154,22 @@
 </head>
 
 <body>
+  <!-- Loading screen -->
+  <div id="loader">
+    <div class="logo-blend"><img src="assets/logo-chrome.png" alt="JJ" class="w-16 h-16 rounded-full" /></div>
+    <div class="loader-bar"><div class="loader-fill" id="loader-fill"></div></div>
+  </div>
+
+  <!-- Progress bar -->
+  <div id="progress"></div>
+
+  <!-- Custom cursor -->
+  <div class="cursor-dot" id="cdot"></div>
+  <div class="cursor-ring" id="cring"></div>
+
+  <!-- Noise grain overlay -->
+  <div class="grain"></div>
+
   <div class="side-l"></div>
   <div class="side-r"></div>
   <div class="v-label left-[10px] top-1/2 -translate-y-1/2 hidden lg:block">JJ Sessions 2026</div>
@@ -199,7 +249,7 @@
 
   <!-- FULL-WIDTH IMAGE with scroll parallax + fade -->
   <section class="relative h-[70vh] overflow-hidden" id="img-strip">
-    <img src="assets/photo-lasers-blue.jpg" alt="JJ Sessions live" class="absolute inset-0 w-full h-[130%] object-cover" id="strip-img" loading="lazy" />
+    <img src="assets/photo-lasers-blue.jpg" alt="JJ Sessions live" class="absolute inset-0 w-full h-[130%] object-cover clip-reveal" id="strip-img" loading="lazy" />
     <div class="absolute inset-0 bg-black/40"></div>
     <div class="absolute inset-0 flex items-center justify-center">
       <h3 class="text-5xl md:text-8xl font-black tracking-tight text-white/90 text-center px-6" id="strip-text">FEEL THE<br/>MUSIC</h3>
@@ -251,7 +301,7 @@
       <p class="text-[10px] font-bold tracking-[.5em] text-brand-violet mb-2">03</p>
       <h2 class="text-5xl md:text-7xl lg:text-8xl font-black tracking-tight mb-4"><span class="chrome-text">Asi vamos.</span></h2>
       <p class="text-brand-light mb-12 max-w-md mx-auto leading-relaxed">Para bookings, colaboraciones o simplemente para hablar de musica.</p>
-      <a href="mailto:info@jjsessions.com" class="inline-block text-xl md:text-2xl font-black tracking-wider text-white hover:text-brand-blue transition-all duration-500 cursor-pointer border-b-2 border-white/10 hover:border-brand-blue pb-2">INFO@JJSESSIONS.COM</a>
+      <a href="mailto:info@jjsessions.com" class="magnetic inline-block text-xl md:text-2xl font-black tracking-wider text-white hover:text-brand-blue transition-colors duration-500 cursor-pointer border-b-2 border-white/10 hover:border-brand-blue pb-2">INFO@JJSESSIONS.COM</a>
 
       <!-- Phone numbers -->
       <div class="flex flex-col sm:flex-row justify-center gap-6 sm:gap-12 mt-10">
@@ -455,6 +505,68 @@
         e.preventDefault();
         const t=document.querySelector(a.getAttribute('href'));
         if(t) lenis.scrollTo(t,{offset:-80});
+      });
+    });
+
+    // ==== CUSTOM CURSOR ====
+    const cdot=document.getElementById('cdot'), cring=document.getElementById('cring');
+    let mx=0,my=0,cx=0,cy=0,rx=0,ry=0;
+    document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
+    (function cursorLoop(){
+      cx+=(mx-cx)*.2; cy+=(my-cy)*.2;
+      rx+=(mx-rx)*.08; ry+=(my-ry)*.08;
+      cdot.style.left=cx+'px'; cdot.style.top=cy+'px';
+      cdot.style.transform='translate(-50%,-50%)';
+      cring.style.left=rx+'px'; cring.style.top=ry+'px';
+      cring.style.transform='translate(-50%,-50%)';
+      requestAnimationFrame(cursorLoop);
+    })();
+    // Hover targets grow cursor
+    document.querySelectorAll('a,button,.ev,.ih,.g-item,.play-btn,.magnetic').forEach(el=>{
+      el.addEventListener('mouseenter',()=>{cdot.classList.add('hover');cring.classList.add('hover');});
+      el.addEventListener('mouseleave',()=>{cdot.classList.remove('hover');cring.classList.remove('hover');});
+    });
+
+    // ==== SCROLL PROGRESS BAR ====
+    const prog=document.getElementById('progress');
+    window.addEventListener('scroll',()=>{
+      const h=document.documentElement.scrollHeight-window.innerHeight;
+      prog.style.width=(scrollY/h*100)+'%';
+    });
+
+    // ==== LOADING SCREEN ====
+    const loader=document.getElementById('loader'), fill=document.getElementById('loader-fill');
+    let pct=0;
+    const loadInt=setInterval(()=>{
+      pct+=Math.random()*15+5;
+      if(pct>=100){pct=100;clearInterval(loadInt);setTimeout(()=>loader.classList.add('done'),300);}
+      fill.style.width=pct+'%';
+    },120);
+
+    // ==== CLIP REVEAL on scroll ====
+    ScrollTrigger.create({
+      trigger:'#img-strip',
+      start:'top 80%',
+      onEnter:()=>document.querySelector('#strip-img').classList.add('revealed'),
+    });
+
+    // ==== MAGNETIC BUTTONS ====
+    document.querySelectorAll('.magnetic').forEach(btn=>{
+      btn.addEventListener('mousemove',e=>{
+        const r=btn.getBoundingClientRect();
+        const x=e.clientX-r.left-r.width/2;
+        const y=e.clientY-r.top-r.height/2;
+        btn.style.transform=`translate(${x*.3}px,${y*.3}px)`;
+      });
+      btn.addEventListener('mouseleave',()=>{btn.style.transform='translate(0,0)';});
+    });
+
+    // ==== GLOW ORBS FOLLOW SCROLL ====
+    gsap.utils.toArray('.glow').forEach((orb,i)=>{
+      gsap.to(orb,{
+        y:i%2===0?-80:80,
+        ease:'none',
+        scrollTrigger:{trigger:orb.parentElement,start:'top bottom',end:'bottom top',scrub:true}
       });
     });
   </script>
